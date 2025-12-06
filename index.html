@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noevo Apps – Modern Websites & AI Tools</title>
+  
+  <!-- Google Fonts: Outfit (Headings) & Plus Jakarta Sans (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons for Service Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* =========================================================
+       VARIABLES & RESET
+    ========================================================= */
+    :root {
+      /* Pastel Neon Palette matching the Logo */
+      --neon-pink: #FF9EAA;
+      --neon-purple: #C6A6FF;
+      --neon-blue: #64F4F9;
+      
+      /* The main gradient */
+      --grad: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+      
+      /* Backgrounds */
+      --bg-dark: #050505;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-hover: rgba(255, 255, 255, 0.08);
+      
+      /* Typography */
+      --font-head: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-head);
+      margin: 0;
+      font-weight: 700;
+    }
+
+    p {
+      color: #a1a1aa;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* =========================================================
+       BACKGROUND GLOWS
+    ========================================================= */
+    .glow-bg {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: var(--grad);
+      filter: blur(140px);
+      opacity: 0.12;
+      z-index: -1;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .top-glow { top: -250px; left: -150px; }
+    .bottom-glow { bottom: -250px; right: -150px; }
+
+    /* =========================================================
+       COMPONENTS
+    ========================================================= */
+    .gradient-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2rem;
+      transition: 0.3s ease;
+    }
+
+    .glass-card:hover {
+      background: var(--glass-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Buttons */
+    .cta-primary {
+      background: var(--grad);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      color: #050505;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(198, 166, 255, 0.2);
+    }
+
+    .cta-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(198, 166, 255, 0.4);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 14px 32px;
+      border-radius: 50px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-left: 10px;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+
+    .cta-outline {
+      background: transparent;
+      border: 1px solid var(--neon-purple);
+      padding: 12px 24px;
+      border-radius: 50px;
+      color: #fff;
+      width: 100%;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta-outline:hover {
+      background: var(--neon-purple);
+      color: #000;
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       NAVBAR
+    ========================================================= */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 0;
+      z-index: 1000;
+      transition: 0.3s;
+      background: rgba(5, 5, 5, 0.6);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 12px; }
+    
+    /* Logo SVG Styling */
+    .logo-svg {
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 0 8px rgba(198, 166, 255, 0.4));
+    }
+    
+    .brand-name { 
+      font-family: var(--font-head); 
+      font-weight: 700; 
+      font-size: 1.3rem; 
+      letter-spacing: -0.5px;
+      color: white;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 0.95rem; color: #ccc; transition: 0.3s; font-weight: 500;}
+    .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+    .nav-cta {
+      background: rgba(255,255,255,0.08);
+      padding: 10px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white !important;
+    }
+    .nav-cta:hover { background: #fff; color: #000 !important; }
+
+    /* Mobile Menu */
+    .mobile-menu-btn { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+    .mobile-menu-btn span { width: 25px; height: 2px; background: white; border-radius: 2px; }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+    #hero {
+      padding: 180px 20px 100px;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 158, 170, 0.08);
+      border: 1px solid rgba(255, 158, 170, 0.2);
+      color: var(--neon-pink);
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: #a1a1aa;
+      max-width: 650px;
+      margin: 0 auto 48px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    /* =========================================================
+       METRICS
+    ========================================================= */
+    #metrics { padding: 40px 20px; }
+    .metrics-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 24px;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+
+    .metric-item { text-align: center; padding: 0 50px; }
+    .metric-item h2 { font-size: 3rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+    .metric-item p { margin: 0; color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .metric-divider { width: 1px; height: 60px; background: rgba(255,255,255,0.1); }
+
+    /* =========================================================
+       SERVICES
+    ========================================================= */
+    section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      height: 100%;
+    }
+
+    .icon-box { 
+      font-size: 2rem; 
+      margin-bottom: 20px;
+      color: var(--neon-blue);
+      background: rgba(100, 244, 249, 0.1);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+    
+    .service-card h3 { font-size: 1.5rem; margin-bottom: 12px; color: white; }
+    .service-card p { font-size: 1rem; line-height: 1.6; }
+
+    /* =========================================================
+       PORTFOLIO
+    ========================================================= */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .portfolio-card { padding: 0; overflow: hidden; }
+    .portfolio-img { height: 220px; width: 100%; background-size: cover; background-position: center; }
+
+    /* Gradients for placeholders */
+    .portfolio-img.roofing { background: linear-gradient(135deg, #1e293b, #334155); position: relative; }
+    .portfolio-img.roofing::after { content: '🏠'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; }
+    
+    .portfolio-img.spa { background: linear-gradient(135deg, #fce7f3, #fbcfe8); position: relative; }
+    .portfolio-img.spa::after { content: '🌸'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; }
+    
+    .portfolio-img.realestate { background: linear-gradient(135deg, #ccfbf1, #99f6e4); position: relative; }
+    .portfolio-img.realestate::after { content: '🏙️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; }
+
+    .portfolio-content { padding: 28px; }
+    .portfolio-content h3 { font-size: 1.4rem; margin-bottom: 8px; color: white; }
+    .portfolio-content p { color: #a1a1aa; font-size: 0.95rem; }
+
+    /* =========================================================
+       PROCESS
+    ========================================================= */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #ffffff;
+      font-family: var(--font-head);
+      margin-bottom: -25px;
+      position: relative;
+      z-index: 0;
+    }
+
+    .process-step h3 { color: var(--neon-blue); position: relative; z-index: 1; margin-bottom: 10px; }
+    .process-step p { position: relative; z-index: 1; }
+
+    /* =========================================================
+       PRICING
+    ========================================================= */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .pricing-card { position: relative; display: flex; flex-direction: column; }
+    .price-header h3 { color: #a1a1aa; font-size: 1.1rem; font-weight: 500; margin-bottom: 10px; }
+    .price-header h1 { font-size: 3.5rem; margin: 0; color: #fff; letter-spacing: -1px; }
+    .price-header .per { color: #666; font-size: 0.9rem; margin-top: 5px; }
+
+    .pricing-card hr { border: 0; height: 1px; background: rgba(255,255,255,0.1); margin: 25px 0; }
+    .pricing-card ul { list-style: none; padding: 0; margin-bottom: 30px; flex-grow: 1; }
+    .pricing-card li { margin-bottom: 16px; color: #d4d4d8; font-size: 0.95rem; display: flex; gap: 12px; align-items: center; }
+    .pricing-card li svg { color: var(--neon-purple); width: 18px; height: 18px; min-width: 18px; }
+
+    .pricing-note {
+      font-size: 0.9rem;
+      color: #71717a;
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(255,255,255,0.1);
+    }
+    .pricing-note strong { color: #a1a1aa; font-weight: 500; }
+
+    /* =========================================================
+       FORM & FOOTER
+    ========================================================= */
+    .form-wrapper { max-width: 700px; margin: 0 auto; text-align: center; }
+    .form-sub { margin-bottom: 30px; color: #a1a1aa; }
+
+    .estimate-form input, .estimate-form textarea {
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 15px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .estimate-form input:focus, .estimate-form textarea:focus {
+      outline: none;
+      border-color: var(--neon-blue);
+      background: rgba(0,0,0,0.5);
+    }
+
+    .input-group { display: flex; gap: 15px; }
+    .full-width { width: 100%; margin-top: 10px; }
+
+    footer { padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; }
+    .footer-brand { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px; opacity: 0.7; }
+    .footer-logo { width: 30px; height: 30px; }
+    .footer-brand p { margin: 0; color: white; font-weight: 600; }
+    .copyright { color: #555; font-size: 0.9rem; }
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .nav-links { display: none; } /* Could add JS toggle here */
+      .mobile-menu-btn { display: flex; }
+      .metrics-container { flex-direction: column; gap: 30px; padding: 30px 20px; }
+      .metric-divider { display: none; }
+      .input-group { flex-direction: column; gap: 0; }
+      .glow-bg { width: 300px; height: 300px; }
+      .nav-container { padding: 0 20px; }
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Ambient Glows -->
+  <div class="glow-bg top-glow"></div>
+  <div class="glow-bg bottom-glow"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <!-- SVG Logo: Pink/Purple/Blue Gradient Arrow -->
+        <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FF9EAA;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#C6A6FF;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#64F4F9;stop-opacity:1" />
+                </linearGradient>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <path d="M25 80 L35 55 L20 40 L85 15 L60 80 L45 65 L25 80 Z" fill="url(#logoGradient)" filter="url(#glow)" stroke="none" />
+        </svg>
+        <span class="brand-name">Noevo Apps</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#process">Process</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#estimate" class="nav-cta">Get Estimate</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="mobile-menu-btn">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-content reveal">
+      <div class="badge">🚀 Elevate Your Business</div>
+      <h1 class="hero-title">Modern Websites & <br> <span class="gradient-text">Intelligent AI Tools</span></h1>
+      <p class="hero-sub">We build beautiful, fast, high-converting websites and AI systems that help local businesses get more calls, clients, and visibility.</p>
+      
+      <div class="hero-buttons">
+        <button class="cta-primary" onclick="document.getElementById('estimate').scrollIntoView()">Get Free Estimate</button>
+        <button class="cta-secondary" onclick="document.getElementById('portfolio').scrollIntoView()">View Work</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section id="metrics">
+    <div class="metrics-container reveal">
+      <div class="metric-item">
+        <h2>50+</h2>
+        <p>Businesses Scaled</p>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <h2>3+</h2>
+        <p>Years Experience</p>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <h2>100%</h2>
+        <p>Client Satisfaction</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2 class="section-title reveal">Our Services</h2>
+    <div class="service-grid">
+
+      <div class="glass-card service-card reveal">
+        <div class="icon-box"><i data-lucide="monitor"></i></div>
+        <h3>Website Creation</h3>
+        <p>Custom, responsive websites designed to convert customers and build your brand authority.</p>
+      </div>
+
+      <div class="glass-card service-card reveal">
+        <div class="icon-box"><i data-lucide="map-pin"></i></div>
+        <h3>Google Optimization</h3>
+        <p>Rank higher on Google Maps, boost 5-star reviews, and generate organic local leads.</p>
+      </div>
+
+      <div class="glass-card service-card reveal">
+        <div class="icon-box"><i data-lucide="search"></i></div>
+        <h3>SEO Mastery</h3>
+        <p>Improve visibility in search engines so customers find you before they find your competitors.</p>
+      </div>
+
+      <div class="glass-card service-card reveal">
+        <div class="icon-box"><i data-lucide="bot"></i></div>
+        <h3>AI Receptionist</h3>
+        <p>Your 24/7 automated assistant that answers questions, collects leads, and books appointments.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <h2 class="section-title reveal">Recent Work</h2>
+    <div class="portfolio-grid">
+      
+      <div class="portfolio-card glass-card reveal">
+        <div class="portfolio-img roofing"></div>
+        <div class="portfolio-content">
+          <h3>Apex Roofing</h3>
+          <p>Lead-focused layout with Google Reviews integration.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card glass-card reveal">
+        <div class="portfolio-img spa"></div>
+        <div class="portfolio-content">
+          <h3>Serene Spa</h3>
+          <p>Booking system integration with soft, calming aesthetics.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card glass-card reveal">
+        <div class="portfolio-img realestate"></div>
+        <div class="portfolio-content">
+          <h3>Urban Real Estate</h3>
+          <p>High-conversion landing page with instant contact tools.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <h2 class="section-title reveal">How It Works</h2>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-number">01</div>
+        <h3>Discovery</h3>
+        <p>We analyze your business goals and target audience.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-number">02</div>
+        <h3>Design</h3>
+        <p>We craft a modern concept tailored to your brand.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-number">03</div>
+        <h3>Build</h3>
+        <p>We develop, optimize, and polish your new system.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-number">04</div>
+        <h3>Launch</h3>
+        <p>We go live and provide ongoing support and updates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <h2 class="section-title reveal">Simple Pricing</h2>
+    <div class="pricing-grid">
+
+      <!-- 1. Website Package -->
+      <div class="glass-card pricing-card reveal">
+        <div class="price-header">
+          <h3>Website Package</h3>
+          <h1>$300-$600</h1>
+          <p class="per">One-time setup</p>
+        </div>
+        <hr />
+        <ul>
+          <li><i data-lucide="check"></i> Custom responsive website</li>
+          <li><i data-lucide="check"></i> Contact form integration</li>
+          <li><i data-lucide="check"></i> Mobile optimized</li>
+          <li><i data-lucide="check"></i> SEO foundation</li>
+          <li><i data-lucide="check"></i> Domain + hosting (Netlify)</li>
+        </ul>
+        <div class="pricing-note">
+           Maintenance: <strong>$50/mo</strong> or <strong>$300/year</strong>
+        </div>
+      </div>
+
+      <!-- 2. Google Boost -->
+      <div class="glass-card pricing-card reveal">
+        <div class="price-header">
+          <h3>Google Boost</h3>
+          <h1>$150</h1>
+          <p class="per">One-time optimization</p>
+        </div>
+        <hr />
+        <ul>
+          <li><i data-lucide="check"></i> Maps & Profile cleanup</li>
+          <li><i data-lucide="check"></i> Keyword & category opt.</li>
+          <li><i data-lucide="check"></i> Profile makeover</li>
+          <li><i data-lucide="check"></i> Better local ranking</li>
+          <li><i data-lucide="check"></i> Photo optimization</li>
+        </ul>
+      </div>
+
+      <!-- 3. Review Booster System -->
+      <div class="glass-card pricing-card reveal">
+        <div class="price-header">
+          <h3>Review Booster</h3>
+          <h1>$50</h1>
+          <p class="per">One-time setup</p>
+        </div>
+        <hr />
+        <ul>
+          <li><i data-lucide="check"></i> Custom Reviews QR code</li>
+          <li><i data-lucide="check"></i> “Review us” landing page</li>
+          <li><i data-lucide="check"></i> Direct Google Maps link</li>
+        </ul>
+      </div>
+
+      <!-- 4. SMS Lead Alerts -->
+      <div class="glass-card pricing-card reveal">
+        <div class="price-header">
+          <h3>SMS Lead Alerts</h3>
+          <h1>$50</h1>
+          <p class="per">One-time setup</p>
+        </div>
+        <hr />
+        <ul>
+          <li><i data-lucide="check"></i> Instant SMS form alerts</li>
+          <li><i data-lucide="check"></i> Never miss a lead again</li>
+          <li><i data-lucide="check"></i> Real-time notifications</li>
+        </ul>
+        <div class="pricing-note">
+           Service Fee: <strong>$25/month</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ESTIMATE FORM -->
+  <section id="estimate">
+    <div class="glass-card form-wrapper reveal">
+      <h2 class="section-title">Get a Free Estimate</h2>
+      <p class="form-sub">Tell us about your project. We usually reply within 24 hours.</p>
+
+      <form class="estimate-form">
+        <div class="input-group">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Email Address" required />
+        </div>
+        <input type="text" placeholder="Business Name" />
+        <textarea rows="5" placeholder="Describe your project goals..."></textarea>
+        <button type="submit" class="cta-primary full-width">Send Request</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <!-- Reusing SVG Logo in Footer -->
+        <svg class="footer-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 80 L35 55 L20 40 L85 15 L60 80 L45 65 L25 80 Z" fill="url(#logoGradient)" stroke="none" />
+        </svg>
+        <p>Noevo Apps</p>
+      </div>
+      <p class="copyright">© 2025 Noevo Apps. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Scroll Reveal Animation
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+
+    window.addEventListener("scroll", reveal);
+    
+    // Trigger on load
+    reveal();
+  </script>
+</body>
+</html>

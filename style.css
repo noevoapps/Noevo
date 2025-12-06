@@ -1,0 +1,388 @@
+/* =========================================================
+   GLOBAL VARIABLES (Brand Colors, Gradients, Glass)
+========================================================= */
+:root {
+  --grad: linear-gradient(135deg, #ff4d67, #b44dff, #4dfcff);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.15);
+  --text-light: #e8e8e8;
+  --text-dim: #b9b9b9;
+  --bg: #030303;
+  --radius: 18px;
+  --transition: 0.25s ease;
+}
+
+/* =========================================================
+   GLOBAL STYLES
+========================================================= */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 60px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+section {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+  height: 55px;
+  margin-right: 12px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.nav-links a {
+  margin-left: 30px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: var(--transition);
+  font-size: 15px;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.nav-cta {
+  padding: 8px 20px;
+  border-radius: 12px;
+  background: var(--grad);
+  color: white !important;
+}
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+#hero {
+  text-align: center;
+  padding-top: 160px;
+  padding-bottom: 160px;
+}
+
+.hero-title {
+  font-size: 60px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  max-width: 650px;
+  margin: 20px auto;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+.cta {
+  margin-top: 30px;
+  padding: 17px 40px;
+  background: var(--grad);
+  color: white;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: var(--transition);
+}
+
+.cta:hover {
+  opacity: 0.85;
+  transform: translateY(-4px);
+}
+
+/* =========================================================
+   METRICS
+========================================================= */
+#metrics {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  padding: 35px 50px;
+  text-align: center;
+  border-radius: var(--radius);
+}
+
+.metric-card h2 {
+  font-size: 55px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metric-card p {
+  opacity: 0.8;
+}
+
+/* =========================================================
+   GLASS CARD BASE CLASS
+========================================================= */
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: 30px;
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-6px);
+}
+
+/* =========================================================
+   SERVICES GRID
+========================================================= */
+#services .service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.service-card h3 {
+  font-size: 24px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.service-card p {
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+/* =========================================================
+   PORTFOLIO SECTION
+========================================================= */
+#portfolio .portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.portfolio-img {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, #111, #222);
+  border-radius: var(--radius);
+  margin-bottom: 15px;
+}
+
+.portfolio-img.spa {
+  background: linear-gradient(135deg, #ffafcc, #c77dff);
+}
+
+.portfolio-img.realestate {
+  background: linear-gradient(135deg, #4dfcff, #63a4ff);
+}
+
+/* =========================================================
+   PROCESS SECTION
+========================================================= */
+#process .process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.process-step h3 {
+  margin-bottom: 10px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================================
+   TESTIMONIAL CAROUSEL
+========================================================= */
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  height: 240px;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: 0.6s ease;
+}
+
+.testimonial {
+  min-width: 100%;
+  text-align: center;
+  padding: 30px;
+}
+
+.testimonial p {
+  font-size: 20px;
+  opacity: 0.85;
+  max-width: 700px;
+  margin: auto;
+}
+
+.testimonial h4 {
+  margin-top: 20px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================================
+   PRICING SECTION
+========================================================= */
+#pricing .pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
+}
+
+.pricing-card h1 {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 46px;
+  margin: 15px 0;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pricing-card li {
+  margin: 10px 0;
+  opacity: 0.85;
+}
+
+.pricing-card .per {
+  opacity: 0.7;
+}
+
+.pricing-card .small {
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+/* =========================================================
+   FAQ SECTION
+========================================================= */
+#faq .faq-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+#faq .faq h3 {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
+#about .about-wrapper {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+/* =========================================================
+   ESTIMATE FORM
+========================================================= */
+.estimate-form {
+  max-width: 650px;
+  margin: auto;
+}
+
+.estimate-form input,
+.estimate-form textarea {
+  width: 100%;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  margin-top: 15px;
+  color: white;
+}
+
+.estimate-form button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer {
+  text-align: center;
+  padding: 50px;
+  opacity: 0.65;
+  font-size: 14px;
+}
+
+/* =========================================================
+   RESPONSIVE HERO
+========================================================= */
+@media (max-width: 700px) {
+  .hero-title {
+    font-size: 45px;
+  }
+  .nav-links {
+    display: none; /* mobile menu can be added later */
+  }
+  .logo {
+    height: 45px;
+  }
+}
