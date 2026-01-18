@@ -9,9 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- Lucide Icons for Service Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
     /* =========================================================
        VARIABLES & RESET
@@ -431,6 +428,33 @@
     .input-group { display: flex; gap: 15px; }
     .full-width { width: 100%; margin-top: 10px; }
 
+    /* Contact Section */
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .email-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .email-link {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .email-link:hover {
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px rgba(100, 244, 249, 0.3);
+    }
+
     footer { padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; }
     .footer-brand { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px; opacity: 0.7; }
     .footer-logo { width: 30px; height: 30px; }
@@ -732,6 +756,19 @@
     </div>
   </section>
 
+  <!-- CONTACT US -->
+  <section id="contact">
+    <h2 class="section-title reveal">Contact Us</h2>
+    <div class="form-wrapper reveal">
+      <p class="form-sub">Get in touch with us via email</p>
+      <div class="glass-card email-container">
+        <div class="email-wrapper">
+          <a href="mailto:noevoapps@gmail.com" class="email-link">noevoapps@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-content">
@@ -746,9 +783,19 @@
     </div>
   </footer>
 
+  <!-- Lucide Icons for Service Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    // Initialize Lucide Icons safely
+    function initIcons() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      } else {
+        // Retry shortly if the script isn't ready yet
+        setTimeout(initIcons, 100);
+      }
+    }
 
     // Scroll Reveal Animation
     function reveal() {
@@ -765,10 +812,13 @@
       }
     }
 
+    // Run on load
+    window.addEventListener("DOMContentLoaded", () => {
+      initIcons();
+      reveal();
+    });
+
     window.addEventListener("scroll", reveal);
-    
-    // Trigger on load
-    reveal();
   </script>
 </body>
 </html>
